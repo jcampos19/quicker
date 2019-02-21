@@ -1,0 +1,226 @@
+.pagination-centered {
+    text-align: center;
+}
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+}
+.pointer-disabled {
+    pointer-events: none;
+}
+/* */
+
+.container-fluid {
+    max-width: 960px;
+}
+[data-toggle="collapse"] {
+    cursor: pointer;
+}
+.align-center {
+    text-align: center;
+}
+.align-right {
+    text-align: right;
+}
+.valign-middle {
+    vertical-align: middle !important;
+}
+@media screen and (max-width: 767px) {
+    .table-responsive thead,
+    .table-responsive tbody,
+    .table-responsive tfoot,
+    .table-responsive tr,
+    .table-responsive th,
+    .table-responsive td {
+        display: block;
+    }
+    .table-responsive thead {
+        display: none;
+    }
+    .table-responsive .align-center,
+    .table-responsive .align-right {
+        text-align: inherit;
+    }
+    .table-responsive tr {
+        border-top: 1px solid #ddd;
+    }
+    .table-responsive tr:first-child {
+        border: 0;
+    }
+    .table-responsive > tbody > tr > td {
+        padding-left: 50%;
+        border-top-color: rgba(221, 221, 221, 0.5);
+    }
+    .table-responsive > tbody > tr > td:first-child {
+        border: 0;
+    }
+    .table-responsive [data-label] {
+        position: relative;
+    }
+    .table-responsive [data-label]:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 8px;
+        content: attr(data-label);
+        font-weight: bold;
+    }
+    .navbar-fixed-top.visible-xs + .row {
+        padding-top: 60px;
+    }
+    .btn .visible-xs {
+        display: inline-block !important;
+    }
+    .sliding-sidebar {
+        position: absolute;
+        z-index: 1;
+        background: #fff;
+        min-height: 100%;
+        border-right: 1px solid #ccc;
+    }
+    .sliding-sidebar.collapse,
+    .sliding-sidebar.collapsing {
+        display: block !important;
+        -webkit-transform: translate3D(-100%, 0, 0);
+        transform: translate3D(-100%, 0, 0);
+        -webkit-transition: all 200ms;
+        transition: all 200ms;
+    }
+    .sliding-sidebar.collapse.in {
+        -webkit-transform: translate3D(0, 0, 0);
+        transform: translate3D(0, 0, 0);
+        box-shadow: 1px 0 0 rgba(0, 0, 0, 0.05), 2px 0 0 rgba(0, 0, 0, 0.05), 3px 0 0 rgba(0, 0, 0, 0.05);
+    }
+}
+.parent-collapsed {
+    display: none;
+}
+.collapsed .parent-expanded {
+    display: none;
+}
+.collapsed .parent-collapsed {
+    display: inline-block;
+}
+html,
+body {
+    width: 100%;
+}
+header {
+    width: 100%;
+    height: 100px;
+    background: url(http://www.visitnorwich.co.uk/assets/Uploads/Events-images/Theatre-generic.jpg) center center no-repeat;
+    background-size: cover;
+}
+#fq-header-text {
+    color: white;
+    font-size: 35px;
+    text-align: left;
+    padding: 0px;
+    font-weight: 500;
+}
+#tenant-header {
+    color: white;
+    font-size: 18px;
+    text-align: left;
+}
+#sign-out-btn {
+    position: absolute;
+    right: 5%;
+    top: 68px;
+    color: white;
+}
+#sign-out-btn > a {
+    color: white;
+}
+.container-fluid {
+    margin-left: 0%;
+    margin-top: 15px;
+}
+#text-shell {
+    padding: 15px;
+}
+.spinner {
+    display: inline-block;
+    opacity: 0;
+    width: 0;
+    -webkit-transition: opacity 0.25s, width 0.25s;
+    -moz-transition: opacity 0.25s, width 0.25s;
+    -o-transition: opacity 0.25s, width 0.25s;
+    transition: opacity 0.25s, width 0.25s;
+}
+.has-spinner.active {
+    cursor: progress;
+}
+#customerPageSizeSelect,
+#vendorPageSizeSelect,
+#addressPageSizeSelect,
+#configPageSizeSelect,
+#contactPageSizeSelect,
+#jobSubmissionPageSizeSelect,
+#transactionPageSizeSelect,
+#vendorReportPageSizeSelect,
+#preauthPageSizeSelect {
+    width: 45px;
+}
+.error {
+    color: red;
+    font-weight: bold;
+}
+.rect {
+    background-color: #f4425c;
+    text-align: center;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+}
+.table {
+    margin-bottom: 0px;
+}
+.button {
+    border-radius: 4px;
+    moz-border-radius: 4px;
+    webkit-border-radius: 4px;
+    height: 35px;
+    width: 150px;
+    border: #4286f4;
+    background-color: #4286f4;
+    color: white;
+}
+#contractDisclaimer {
+    font-size: 14px;
+}
+
+###
+
+@import "https://fonts.googleapis.com/css?family=Kanit:800i";
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #F02D9A;
+  cursor: pointer;
+}
+
+#fq-header-text span {
+  color: white;
+  display: inline-block;
+  position: relative;
+}
+
+input {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}

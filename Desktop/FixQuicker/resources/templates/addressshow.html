@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: head"></div>
+</head>
+
+<body>
+<header>
+    <div th:replace="fragments/header :: header"></div>
+</header>
+
+<div class="container-fluid col-xm-12">
+    <div th:replace="fragments/filter-sidebar :: filter-sidebar"></div>
+    <div class="col-xs-9 col-sm-9 col-md-10 main-body">
+        <div th:replace="fragments/top-menubar :: top-menubar"></div>
+        <div class="bubble col-xs-12" id="workOrderContent">
+            <h2>Manage Properties</h2>
+        </div>
+        <div class="col-xs-12 col-sm-7 container">
+            <h3>Edit Property</h3>
+            <form class="form-horizontal read-only" th:object="${address}" th:action="@{/address}" method="get">
+                <div class="form-group">
+                    <label class="col-xs-12">Address Id</label>
+                    <div class="col-xs-6">
+                        <p class="form-control" th:text="${address.id}">id</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6">Street Address</label>
+                    <label class="col-xs-3">Unit</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" th:field="*{streetAddress}"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-6">City</label>
+                    <label class="col-xs-3">State</label>
+                    <label class="col-xs-3">Zip</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control" th:field="*{city}"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <input type="text" class="form-control" th:field="${address.state}"/>
+                    </div>
+                    <div class="col-xs-3">
+                        <input type="text" class="form-control" th:field="*{zipCode}"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-12">Title or Nickname</label>
+                    <div class="col-xs-6">
+                        <input type="text" class="form-control"/>
+                    </div>
+                </div>
+                <div class="col-xs-7 col-sm-5" id="imageupload-container">
+                    <div id="profile-container">
+                        <img th:src="@{/images/photoicon.png}" id="profileImage" alt="Profile Image" height="100" width="100" />
+                    </div>
+                    <p id="upload-button">Upload Photo</p>
+                    <input id="lblImageUpload" type="file" name="profile_photo" placeholder="Profile Photo">
+                </div>
+                <div class="col-xs-12 col-md-10" style="padding-top: 55px;">
+                    <button class="btn btn-default col-xs-5 addressCancel" type="button">Go Back</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

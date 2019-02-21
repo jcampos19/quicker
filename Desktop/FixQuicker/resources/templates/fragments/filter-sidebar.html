@@ -1,0 +1,67 @@
+ 
+<!DOCTYPE html>
+<html>
+  <head>
+  </head>
+  <body>
+    <!--<div id="filter-sidebar" th:fragment="filter-sidebar" class="col-xs-3 col-md-2 collapse sliding-sidebar sidebar" >
+        -->
+    <div id="filter-sidebar" th:fragment="filter-sidebar" class="filter-sidebar-lg sidebar" >
+        <a class="list-group-item" id="companyName">La Jolla Vacation Rentals</a>
+        <a sec:authorize="hasAuthority('WRITE_PRIVILEGE')" class="list-group-item site-category" th:href="@{/dashboard}">
+            Home
+        </a>
+        <a sec:authorize="hasAnyAuthority('CUSTOMER_READ','WRITE_PRIVILEGE')" class="list-group-item" id="jobRequest" href="/jobsubmission/new">
+            <img th:src="@{/images/menu-icons/workorders.png}" alt="Work Order"/>Job Requests
+        </a>
+        <a sec:authorize="hasAnyAuthority('CUSTOMER_READ','WRITE_PRIVILEGE')" class="list-group-item" id="vendorResponse" th:href="@{/vendorreports}">
+            <img th:src="@{/images/menu-icons/vendorresponses.png}" alt="Vendor Responses">Vendor Responses
+        </a>
+        <a sec:authorize="hasAnyAuthority('CUSTOMER_READ','WRITE_PRIVILEGE')" class="list-group-item" id="jobReqStatus" th:href="@{/workstatuses}">
+            <img th:src="@{/images/menu-icons/workorderstatus.png}" alt="Work Order Status">Job Request Status
+        </a>
+        <a sec:authorize="hasAuthority('WRITE_PRIVILEGE')" class="list-group-item hideContent" th:href="@{/customers}">
+            <i class="fa fa-users"></i>Customers</a>
+        <a sec:authorize="hasAnyAuthority('VENDOR_READ','WRITE_PRIVILEGE')" class="list-group-item" id="reviewQuotes" th:href="@{/reviewquotes}">
+            <img th:src="@{/images/menu-icons/reviewquotes.png}" alt="Vendor Responses">Review Quotes
+        </a>
+        <a sec:authorize="hasAuthority('WRITE_PRIVILEGE')" class="list-group-item hideContent" th:href="@{/configurations}">
+            <i class="fa fa-wrench"></i>Configurations</a>
+        <a sec:authorize="hasAnyAuthority('CUSTOMER_READ','WRITE_PRIVILEGE')" class="list-group-item" id="transHistory" th:href="@{/transactions}">
+            <img th:src="@{/images/menu-icons/transactionhistory.png}" alt="Transaction History"/>Transaction History
+        </a>
+        <a sec:authorize="hasAnyAuthority('CUSTOMER_READ','WRITE_PRIVILEGE')" class="list-group-item" th:href="@{/addresses}">
+            <img th:src="@{/images/menu-icons/manageprop.png}" alt="Manage Properties"/>Manage Properties
+        </a>
+        <a sec:authorize="hasAnyAuthority('CUSTOMER_READ','WRITE_PRIVILEGE')" class="list-group-item" th:href="@{/contacts}">
+            <img th:src="@{/images/menu-icons/manageteam.png}" alt="Manage Team"/>Manage Team
+        </a>
+        <a class="list-group-item" id="accountSettingsContent">
+            <div class="float-left" id="accountSettings">
+                <img th:src="@{/images/menu-icons/settings.png}" alt="Account Settings"/>Account Settings
+            </div>
+            <div href="#" class="float-right" id="accountMenu" data-toggle="collapse" data-target="#accountSubMenu" aria-expanded="false">
+                <span href="#" class="fa fa-chevron-down"></span>
+            </div>
+        </a>
+        <ul class="collapse" id="accountSubMenu" role="menu" aria-labelledby="accountMenu">
+            <li><a class="list-group-item" id="generalSettings" th:href="@{/generalSettings}">
+                <img th:src="@{/images/menu-icons/cogs.png}" alt="General Account Settings" />General Account Settings</a></li>
+            <li><a class="list-group-item" id="notifications" th:href="@{/notifications}">
+                <img th:src="@{/images/menu-icons/notification.png}" alt="Notification Settings" style="margin: 0px 5px;padding-right: 10px;"/>Notification Settings</a></li>
+            <li><a class="list-group-item" id="profileInformation" th:href="@{/profileInformation}">
+                <img th:src="@{/images/menu-icons/avatar.png}" alt="Profile"/>Edit Profile Information</a></li>
+            <li><a class="list-group-item" id="companyInfo" th:href="@{/companyInfo}">
+                <img th:src="@{/images/menu-icons/toolbox.png}" alt="Company information"/>Company information</a></li>
+            <li><a class="list-group-item" id="setupPayments" th:href="@{/setupPayments}">
+                <img th:src="@{/images/menu-icons/currency.png}" alt="Set Payment"/>Setup Payments</a></li>
+        </ul>
+        <a class="list-group-item width-100 sidebar-bottom" th:src="@{/contactUs.html}">
+            <img th:src="@{/images/menu-icons/contact.png}" alt="Contact FixQuicker" />Contact FixQuicker
+        </a>
+        <div class="sidebar-footer text-center">
+            <p>© 2017 FixQuicker</p>
+        </div>
+    </div>
+  </body>
+</html>

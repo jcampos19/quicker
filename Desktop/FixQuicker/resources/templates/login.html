@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+    <title>Home</title>
+
+    <script>
+/*<![CDATA[*/
+    function validate() {
+        if (document.f.username.value == "" && document.f.password.value == "") {
+            alert('Username requiredPassword required');
+            document.f.username.focus();
+            return false;
+        }
+        if (document.f.username.value == "") {
+            alert('Username required');
+            document.f.username.focus();
+            return false;
+        }
+        if (document.f.password.value == "") {
+            alert('Password required');
+            document.f.password.focus();
+            return false;
+        }
+    }
+/*]]>*/
+
+    </script>
+    <style type="text/css">
+         body {
+            font-family: 'Source Sans Pro', sans-serif;
+            font-size: 12px;
+            line-height: 1.57142857;
+            color: #A0A0A0;
+            background-color: #fff;
+            padding-top: 0;
+            font-weight: 300;
+        }
+
+        form {
+            width: 350px;
+            margin: 45px 0 20px;
+        }
+
+        h3 {
+            font-size: 16px;
+        }
+
+        p {
+            margin: 0 0 11px;
+        }
+
+        p, label {
+            color: #A0A0A0;
+            font-weight: normal;
+        }
+
+        a {
+            color: #65B8FF
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .page-dark.layout-full:before {
+            position: fixed;
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-size: contain;
+            z-index: -1;
+            background-image: url("https://preview.ibb.co/iMj08G/pexels_photo.jpg");
+            opacity: 0.7;
+            filter: brightness(50%);
+        }
+
+        .page-login-v2 .page-brand-info .brand-text {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 11px 0 11px 20px;
+        }
+
+        .page-dark.layout-full {
+            color: #fff;
+        }
+
+        .page-dark.layout-full .brand-text {
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .page-login-v2:before {
+            background-image: url(../../images/login.jpg);
+        }
+
+        .brand-info  {
+            display: inline-block;
+            vertical-align: middle;
+            margin: 11px 0 11px 20px;
+            color: white;
+        }
+
+        .brand-info p {
+            font-size: 14px;
+            color: #C3C3C3;
+            max-width: 420px;
+            text-shadow: 1px 1px #95989A;
+        }
+
+        .social-media {
+            width: 65px;
+            height: 65px;
+        }
+
+        .page-login-main {
+            padding-top: 60px;
+            width: 100%;
+        }
+
+        .page-login-v2 footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: 50px 60px;
+            text-align: center;
+        }
+
+        .page-login-v2 form {
+            width: 100%;
+            margin: 45px 0 20px;
+        }
+
+        .page-login-v2 .page-login-main {
+            top: -90px;
+            position: fixed;
+            padding: 115px 56px 175px;
+            color: #76838f;
+            background: #fff;
+        }
+
+        .social-media {
+            font-size: 60px;
+        }
+
+        a:hover, i.fa:hover {
+            filter: brightness(85%);
+            text-decoration: none;
+        }
+
+        @media screen and (min-width: 750px) {
+            .brand-info {
+                margin: 220px 100px 0 90px;
+                max-width: 50%;
+            }
+
+            .page-content {
+                padding: 30px 30px;
+            }
+
+            .page-login-v2 .page-login-main {
+                padding-top: 75px;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 327px;
+                position: fixed;
+                }
+
+            .page-login-v2 .page-content {
+                padding-right: 500px;
+            }
+
+            .page-login-v2 .page-brand-info {
+                margin: 220px 100px 0 90px;
+            }
+
+            .page-dark.layout-full .brand {
+                margin-bottom: 22px;
+            }
+
+            .page-login-v2 .page-brand-info p {
+                opacity: .6;
+                max-width: 650px;
+            }
+
+            #copyright {
+                position: fixed;
+                bottom: 15px;
+                right: 380px;
+                color: white;
+            }
+
+            .page-dark.layout-full:before {
+                background-size: cover;
+            }
+
+        @media screen and (min-width: 900px) {
+            .page-login-v2 .page-login-main {
+                padding-top: 75px;
+                width: 340px;
+                padding: 90px 33px;
+            }
+
+            .page-dark.layout-full:before {
+                background-size: contain;
+            }
+        }
+
+    </style>
+</head>
+<body class="page-login-v2 layout-full page-dark">
+
+<div class="page">
+    <div class="main-container">
+        <div class="brand-info">
+            <div id="brand">
+                <h2 class="brand-text no-margin">FixQuicker</h2>
+            </div>
+            <p>A marketplace for <strong class="text-white">available</strong> contractors. We handle matching, booking, and
+                payment processing on a secure and easy to use platform. </p>
+        </div>
+        <div class="page-login-main">
+            <div class="brand visible-xs">
+                <img class="brand-img" src="../assets/images/logo-blue@2x.png" alt="...">
+                <h1 class="brand-text">FixQuicker</h1>
+            </div>
+            <h3 class="">Sign In</h3>
+            <p>Sign in below to access your account</p>
+
+            <form name="f" action="login" method="POST" onsubmit="return validate();">
+                <div class="form-group">
+                    <label class="sr-only" for="inputEmail">Email</label>
+                    <input type="email" class="form-control" id="inputEmail" name="username" value=""
+                           placeholder="Email Address">
+                </div>
+                <div class="form-group">
+                    <label class="sr-only" for="inputPassword">Password</label>
+                    <input type="password" class="form-control" id="inputPassword" name="password"
+                           placeholder="Password">
+                </div>
+                <div class="form-group clearfix">
+                    <label style="float: left;"><input id="rememberme" name="rememberme" value="remember" type="checkbox" /> &nbsp;Remember me</label>
+                    <div id="forgot-pwd-btn" style="float: right;">
+                        <a id="password-reset-btn" class="pull-right" href="/forgetPassword.html">Forgot Password?</a>
+                    </div>
+                </div>
+                <div id="form-btn-container">
+                    <input class="btn btn-info btn-block" name="submit" type="submit" value="Sign In"/>
+                </div>
+            </form>
+            <p>New to FixQuicker? <a href="/registration.html">Sign up</a></p>
+            <footer class="page-copyright">
+                <span id="copyright">FixQuicker, Inc. © 2017 All Rights Reserved</span>
+                <div class="social">
+                    <a class="social-media" href="#">
+                        <i class="fa fa-facebook-square" style="color:#3D578F"></i>
+                    </a>
+                    <a class="social-media" href="#">
+                        <i class="fa fa-twitter-square" style="color:#28AAE1"></i>
+                    </a>
+                    <a class="social-media" href="#">
+                        <i class="fa fa-google-plus-square" style="color:#DB4334"></i>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>
