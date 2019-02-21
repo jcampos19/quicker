@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: head"></div>
+
+<body class="background-white">
+<header>
+    <div th:replace="fragments/header :: header"></div>
+</header>
+
+<div class="container-fluid col-xm-12">
+    <div th:replace="fragments/filter-sidebar :: filter-sidebar"></div>
+    <div class="main-body">
+        <div th:replace="fragments/top-menubar :: top-menubar"></div>
+        <div class="bubble col-xs-12" id="workOrderContent">
+            <h2>Work Order Status</h2>
+        </div>
+        <div class="main-content">
+            <div class="col-xs-12">
+                <div class="" id="workStatusTable">
+                    <table class="table table-responsive workstatusrows">
+                        <thead>
+                        <tr>
+                            <th>Order</th>
+                            <th>Property</th>
+                            <th>Service Type</th>
+                            <th>Contractor</th>
+                            <th>Status</th>
+                            <th>Amount</th>
+                            <th>Date/Time Booked</th>
+                            <th>Team Member</th>
+                            <th style="color: #4CBD8B;">Send SMS</th>
+                            <th>Cancel Jobs</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="workstatus : ${workstatuses}">
+                            <td class="valign-middle" data-label="Order">
+                                <a href="javascript:void(0)" th:text="${workstatus.id}"></a>
+                            </td>
+                            <td class="valign-middle" data-label="Property" th:text="${workstatus.address}"></td>
+                            <td class="valign-middle" data-label="Service Type" th:text="${workstatus.category}"></td>
+
+                            <td class="valign-middle" data-label="Contractor" style="width:150px;">
+                                <div class="avatar float-left">
+                                    <img alt="" src="http://lorempixel.com/100/100/people/9/" style="width: 35px; height: 35px;">
+                                </div>
+                                <div class="valign-middle">
+                                    <a data-toggle="dropdown" href="javascript:void(0)" title="Vendor Full Name" data-animation="scale-up"><div th:text="${workstatus.vendorFullName}"></div></a>
+                                    <div class="dropdown-menu dropdown-menu-media bubble" id="vendorFullName" role="menu-item">
+                                    <div class="dropdown-menu-header">
+                                        <div class="col-xs-12 no-padding">
+                                            <div class="card hovercard">
+                                                <div class="avatar">
+                                                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                                                </div>
+                                                <div class="modal-vendor-info">
+                                                    <div class="fav-user">
+                                                        <i class="fa fa-heart-o" style="color: #D3D6D8;"></i>
+                                                    </div>
+                                                    <h4 class="no-margin">Script Eden</h4>
+                                                    <p>Plumber</p>
+                                                    <img src="/images/smartphone.png"><span style="color: black;"> (619) 235-0922</span>
+                                                    <div class="contact-vendor">
+                                                        <p>Courtesy Plumbing</p>
+                                                        <img src="/images/phone.png" style="color: black;"><span> (619) 455-7649</span>
+                                                    </div>
+                                                    <p class="selected-user">Booked</p>
+                                                    <div class="vendor-rating width-100">
+                                                        <div class="float-left">
+                                                            <span>30 days</span>
+                                                            <p>Warranty</p>
+                                                        </div>
+                                                        <div class="float-right">
+                                                            <span>4.6/5</span>
+                                                            <p>Rating</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </td>
+                            <td class="valign-middle" data-label="Status">
+                                <button class="btn btn-success btn-xs arrival-time" type="button" th:text="${workstatus.status}"></button>
+                            </td>
+                            <td class="valign-middle" data-label="Amount">
+                                <a data-toggle="collapse" title="Current Status" id="reviewQuote" data-animation="scale-up" data-target="#quoteResults" aria-expanded="false">Review Quote</a>
+                                <div class="dropdown-menu quote-container" id="quoteResults" aria-labelledby="reviewQuote" role="form">
+                                    <div class="col-xs-12 quote-bubble">
+                                        <div class="col-xs-7">
+                                            <div class="avatar quote-avatar float-left">
+                                                <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                                            </div>
+                                            <span class="font-bold">Job #000003</span>
+                                        </div>
+                                        <div class="col-xs-5 text-right quote-options">
+                                            <img th:src="@{/images/sendMSG.png}" height="17" width="20"></img>
+                                            <img th:src="@{/images/printer.png}" height="17" width="18"></img>
+                                            <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12">
+                                        <p class="text-muted float-right"><strong>16 Ocean Ave</strong></p>
+                                    </div>
+                                    <div class="col-xs-12 no-padding">
+                                        <div class="col-xs-6 text-center">
+                                            <span class="text-muted">Ryan Cheese</span>
+                                            <p>Shocking San Diego</p>
+                                            <p>Lic#:487678</p>
+                                        </div>
+                                        <div class="col-xs-6 text-right">
+                                            <p>Electrical</p>
+                                            <p class="no-margin">Assigned <span class="user-name">Michelle</span></p>
+                                        </div>
+                                    </div>
+                                    <div id="demo" class="collapse col-xs-12">
+                                        <table class="table" data-sorting="true">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Type</th>
+                                                <th>Item</th>
+                                                <th>Amount</th>
+                                                <th>Qty</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Leak</td>
+                                                <td>Labor</td>
+                                                <td>$15.00</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Pipe</td>
+                                                <td>Materials</td>
+                                                <td>$30.00</td>
+                                                <td>4</td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Bolts</td>
+                                                <td>Sealant</td>
+                                                <td>$8.50</td>
+                                                <td>1</td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td>Tax on Materials</td>
+                                                <td>$4.80</td>
+                                                <td></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <a href="#" data-toggle="collapse" data-target="#demo">
+                                        <div class="col-xs-12" style="background-color:#4E5762;">
+                                            <div><img class="float-left expand-icon" th:src="@{/images/expand.png}" alt="expand content" height="13" width="15"/>                                            </div>
+                                            <p class="col-xs-5">Collapse</p>
+                                            <p class="col-xs-3">Total</p>
+                                            <p class="col-xs-2">Cost</p>
+                                        </div>
+                                    </a>
+                                    <div class="col-sm-5 vendor-rating">
+                                        <div class="float-left">
+                                            <span>30 days</span>
+                                            <p>Warranty</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <span>4.6/5</span>
+                                            <p>Rating</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-7">
+                                        <button class="btn btn-info col-xs-5 has-spinner" type="submit">
+                                            <span class="spinner">
+                                                <i class="icon-spin icon-refresh"></i>
+                                            </span>Accept
+                                        </button>
+                                        <button class="btn btn-danger col-xs-5 float-right" type="button">Decline</button>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="valign-middle" data-label="Date/Time Booked" th:text="${workstatus.date}"></td>
+                            <td class="valign-middle" data-label="Team Member" th:text="${workstatus.contactFullName}">>Michelle</td>
+
+                            <td class="valign-middle" data-label="Send SMS">
+                                <a data-toggle="dropdown" href="javascript:void(0)" title="SMS Message" data-animation="scale-up" role="button">
+                                    <img th:src="@{/images/sendSMS.png}" height="25" width="25"></img>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-media bubble smsMessage-bubble" role="menu-item" id="smsMessage">
+                                    <div class="dropdown-menu-header" role="form">
+                                        <form class="no-padding">
+                                            <textarea rows="3" class="form-control" placeholder="Write message..." style="border-radius: 0px;"></textarea>
+                                            <div class="col-xs-12" style="padding: 5px 0px 0px;">
+                                                <button type="button" class="btn btn-default col-xs-5 float-left" data-dismiss="modal">Confirm</button>
+                                                <button type="button" class="btn btn-default col-xs-5 float-right" data-dismiss="modal">Go Back</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="valign-middle" data-label="Cancel Jobs">
+                                <a data-toggle="modal" href="#" data-toggle="modal" data-target="#cancelModal">
+                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="cancelModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="col-xs-12 col-sm-3 col-lg-2">
+                        <div class="card hovercard">
+                            <div class="avatar">
+                                <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                            </div>
+                            <div class="modal-vendor-info">
+                                <div class="vendor-main">
+                                    <div class="fav-user">
+                                        <i class="fa fa-heart-o fa-disabled"></i>
+                                    </div>
+                                    <h4>Script Eden</h4>
+                                    <p>Plumber</p>
+                                    <img th:src="@{/images/smartphone.png}"><span> (619) 235-0922</span></img>
+                                    <div class="contact-vendor">
+                                        <p>Courtesy Plumbing</p>
+                                        <img th:src="@{/images/phone.png}"><span> (619) 455-7649</span></img>
+                                    </div>
+                                    <p class="selected-user">Booked</p>
+                                    <div class="vendor-rating width-100">
+                                        <div class="float-left">
+                                            <span>30 days</span>
+                                            <p>Warranty</p>
+                                        </div>
+                                        <div class="float-right">
+                                            <span>4.6/5</span>
+                                            <p>Rating</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-5 background-white" id="bookModalContent">
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <h3 style="color:red;">Cancellation Request</h3>
+                                <p class="top-padding">You have requested to cancel the following booked work order:</p>
+                            </div>
+                            <div class="top-padding">
+                                <div class="float-right"><p>Assigned<span class="user-name">Michelle</span></p></div>
+                                <h4 class="no-padding">111 Cardiff Lane, unit 3</h4>
+                            </div>
+                            <div>Access Code: 65397</div>
+                            <p>Plumbing</p>
+                            <h4>Description</h4>
+                            <p>We have water leaking from the ceiling in one of the bedrooms. Not sure where it's coming from</p>
+                            <div class="col-xs-1">
+                                <div class="checkbox checkbox-plain">
+                                    <label>
+                                        <input placeholder="Required" type="checkbox">
+                                        <i class="helper"></i>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-xs-11">
+                                <p>I understand that cancellation is subject to the terms agreed upon in the Contractor’s Agreement.
+                                    I also understand that the Service Fee will not be refunded.</p>
+                            </div>
+                            <div class="col-xs-12 top-padding">
+                                <button type="button" class="btn btn-info col-xs-5 btn-danger float-left" data-dismiss="modal">Confirm</button>
+                                <button type="button" class="btn btn-default col-xs-5 float-right" data-dismiss="modal">Go Back</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

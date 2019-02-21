@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: head" >  </div>
+
+<body>
+<div th:replace="fragments/header :: header" >  </div>
+
+<div class="container-fluid col-xm-12">
+    <div th:replace="fragments/filter-sidebar :: filter-sidebar" >  </div>
+    <div class="main-body">
+        <div th:replace="fragments/top-menubar :: top-menubar" >  </div>
+        <div class="bubble col-xs-12" id="workOrderContent">
+            <h2>Manage Team</h2>
+        </div>
+        <div class="col-xs-12 col-sm-7 container">
+            <h3>Add New Team Member <img th:src="@{/images/plusYELLOW.png}" alt="New Member" height="25" width="25" /></h3>
+            <form class="form-horizontal" th:object="${contact}" th:action="@{/contact}" method="post">
+                <div class="form-group">
+                    <div class="col-xs-6">
+                        <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+                        <input type="text" class="form-control" th:field="*{firstName}" placeholder="First Name"/>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+                        <input type="text" class="form-control" th:field="*{lastName}" placeholder="Last Name"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-6">
+                        <div class="error" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>
+                        <input type="text" class="form-control" th:field="*{phone}" placeholder="Mobile Phone #"/>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                        <input type="text" class="form-control" th:field="*{email}" placeholder="Email Address"/>
+                    </div>
+                </div>
+                <div class="form-group" style="padding-top: 35px;">
+                    <div class="col-xs-6">
+                        <select class="form-control" id="role">
+                            <option value="">Role</option>
+                            <option>Administrator</option>
+                            <option>Team Member</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-6">
+                        <select class="form-control" id="notificationPref">
+                            <option value="">Notification Preferences</option>
+                            <option>Via SMS</option>
+                            <option>Via Email</option>
+                            <option>Via Both</option>
+                            <option>Email Only Receipts</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-5 btnFormBottom">
+                    <button type="submit" class="btn btn-info col-xs-5 has-spinner">
+                        <span class="spinner">
+                            <i class="icon-spin icon-refresh"></i>
+                            </span>Save
+                    </button>
+                    <button class="btn btn-default col-xs-5 float-right contactsCancel" type="button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

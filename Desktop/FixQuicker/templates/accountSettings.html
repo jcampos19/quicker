@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="fragments/head :: head"></div>
+
+<body>
+<header>
+	<div th:replace="fragments/header :: header"></div>
+</header>
+
+<div class="container-fluid col-xm-12">
+	<div th:replace="fragments/filter-sidebar :: filter-sidebar"></div>
+	<div class="main-body">
+		<div th:replace="fragments/top-menubar :: top-menubar"></div>
+		<div class="bubble col-xs-12" id="workOrderContent">
+			<h2><img th:src="@{/images/menu-icons/notification.png}" alt="Set Payment"/>General Account Settings</h2>
+		</div>
+		<div class="main-content">
+			<div class="col-xs-12 container">
+				<div class="col-xs-12" class="settings-bordered">
+					<div class="">
+						<a th:href="@{/generalSettings}">
+							<div><img th:src="@{/images/generalSettings.png}" class alt="General Settings"/></div>
+							<p>General Account Settings</p>
+						</a>
+					</div>
+					<div class="">
+						<a th:href="@{/notifications}">
+							<div><img th:src="@{/images/notificationSettings.png}" alt="Notification Settings"/></div>
+							<p>Notification Settings</p>
+						</a>
+					</div>
+					<div class="">
+						<a th:href="@{/profileInformation}">
+							<div><img th:src="@{/images/profileAvatar.png}" alt="Avatar"/></div>
+							<p>Edit Profile Information</p>
+						</a>
+					</div>
+					<div class="">
+						<a th:href="@{/companyInfo}">
+						<div><img th:src="@{/images/companyToolbox.png}" alt="Toolbox"/></div>
+							<p>Company Information</p>
+						</a>
+					</div>
+					<div class="">
+						<a th:href="@{/setupPayments}">
+							<div><img th:src="@{/images/paymentMethod.png}" alt="Payment"/></div>
+							<p>Setup Payments</p>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

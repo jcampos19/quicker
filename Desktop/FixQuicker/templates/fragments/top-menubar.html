@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<!-- top-menu-bar -->
+<div class="work-menu-content" id="top-menubar" th:fragment="top-menubar">
+    <ul class="work_menu col-xs-10 col-xs-9" id="customerMenus">
+        <li id="topJobRequest">
+            <!--<a th:href="@{/jobsubmissions}"> </a> -->
+                <img th:src="@{/images/newworkorder.png}" alt="New Work Order" height="30" width="29"/>
+                <span class="visible-md visible-lg">New Job Request</span>
+        </li>
+        <li id="topVendorResponse">
+            <img th:src="@{/images/vendorresponses.png}"  alt="Vendor Responses" height="15" width="24"/>
+            <span class="visible-md visible-lg">Vendor Responses</span>
+        </li>
+        <li id="topJobReqStatus">
+            <img th:src="@{/images/workorderstatus.png}"  alt="Work Order Status" height="18" width="20"/>
+            <span class="visible-md visible-lg">Job Request Status</span>
+        </li>
+        <li id="topReviewQuotes">
+            <img th:src="@{/images/reviewquotes.png}"  alt="Review Quotes" height="20" width="20"/>
+            <span class="visible-md visible-lg">Review Quotes</span>
+        </li>
+        <li id="topTransHistory">
+            <img th:src="@{/images/transactionhistory.png}"  alt="Transaction History" height="20" width="20"/>
+            <span class="visible-md visible-lg">Transaction History</span>
+        </li>
+    </ul>
+    <ul class="work_menu col-xs-2 col-sm-3" id="activeJobContent">
+        <li>
+            <div class="btn-group">
+                <a class="activeJob" data-toggle="dropdown">
+                    <span class="step_no visible-md visible-lg">Active Jobs</span>
+                    <img th:src="@{/images/activejobs.png}" alt="Active Jobs" height="26" width="26">
+                </a>
+                <ul class="dropdown-menu dropdown-menu-right dropdown-menu-media" id="openItemDropdown">
+                    <li class="dropdown-menu-header bubble orange-bubble" role="presentation">
+                        <h2>Active Jobs</h2>
+                    </li>
+                    <li class="list-group scrollable is-enabled scrollable-vertical " role="presentation" style="position: relative;">
+                        <div data-role="container" class="scrollable-container" style="height: 200px;">
+                            <div data-role="content" class="scrollable-content" id="active-jobs-content">
+                                <a class="list-group-item" href="" role="menuitem">
+                                    <div class="media row">
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-6 text-left avatar">
+                                                <img alt="..." class="float-left" src="http://lorempixel.com/100/100/people/9/">
+                                                <p class="activeJob-status">Plumbing</p>
+                                                <button class="btn btn-xs btn-success activeJobEta">On Site</button>
+                                            </div>
+
+                                            <div class="col-xs-6 text-right">
+                                                <p class="media-heading">212 La Jolla Blvd. Unit 1</p>
+                                                <p class="jobCost" style="margin: 0px;">$274.56</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12">
+                                            <div class="col-xs-12 text-left">
+                                                <div>Tony Carmon</div>
+                                            </div>
+                                            <div class="col-xs-6 float-left text-left">
+                                                <p>Premier Plumbing</p>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <div class="media-detail float-right">
+                                                    <p>Assigned<span class="user-name">Michelle</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="scrollable-bar scrollable-bar-vertical scrollable-bar-hide" draggable="false">
+                            <div class="scrollable-bar-handle"></div>
+                        </div>
+                    </li>
+                    <li class="dropdown-menu-footer" role="presentation">
+                        <a class="dropdown-menu-footer-btn" href="javascript:void(0)" role="button">
+                            <i class="icon wb-settings" aria-hidden="true"></i>
+                        </a>
+                        <a href="" role="menuitem">
+                            See All Active Jobs
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
+

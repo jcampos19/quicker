@@ -1,0 +1,17 @@
+diff a/src/main/resources/templates/customers.html b/src/main/resources/templates/customers.html	(rejected hunks)
+@@ -34,13 +34,12 @@
+             <a href="/logout">Sign Out</a>
+         </div>
+     </div>
++    <!-- filter sidebar -->
++    <div th:replace="fragments/filter-sidebar :: filter-sidebar" >  </div>
+ </header>
+ 
+ <div class="container-fluid">
+     <div class="row">
+-        <!-- filter sidebar -->
+-        <div th:replace="fragments/filter-sidebar :: filter-sidebar" >  </div>
+-
+         <!-- table container -->
+         <div class="col-sm-9 col-sm-offset-2 col-md-10 table-container">
+             <div class="" id="">

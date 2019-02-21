@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:replace="fragments/head :: head"></div>
+</head>
+<body>
+<header>
+    <div th:replace="fragments/header :: header"></div>
+</header>
+
+<div class="container-fluid col-xm-12">
+    <div th:replace="fragments/filter-sidebar :: filter-sidebar"></div>
+    <div class="col-xs-9 col-sm-9 col-md-10 main-body">
+        <div th:replace="fragments/top-menubar :: top-menubar"></div>
+        <div class="bubble col-xs-12" id="workOrderContent">
+            <h2>Account Settings</h2>
+        </div>
+        <div class="col-xs-12 container">
+            <table class="table table-responsive" data-sorting="true">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Category</th>
+                        <th>Role</th>
+                        <th>Email address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="preauthorization : ${preauthorizations}">
+                        <td class="valign-middle" data-label="Id" th:text="${preauthorization.id}"><a href="/preauthorizations/${preauthorization.id}">Id</a></td>
+                        <td class="valign-middle" data-label="Role" th:text="${preauthorization.role}">Role</td>
+                        <td class="valign-middle" data-label="Category" th:text="${preauthorization.category}">Category</td>
+                        <td class="valign-middle" data-label="Email address" th:text="${preauthorization.emailAddress}">Email address</td>
+                        <td><a th:href="${'/preauthorization/' + preauthorization.id}">View</a></td>
+                        <td><a th:href="${'/preauthorization/edit/' + preauthorization.id}">Edit</a></td>
+                        <td><a th:href="${'/preauthorization/delete/' + preauthorization.id}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="form-group col-md-1">
+                    <select class="form-control pagination" id="preauthPageSizeSelect">
+                        <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}" th:selected="${pageSize} == ${selectedPageSize}"></option>
+                    </select>
+                </div>
+                <div th:if="${preauthorizations.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                    <ul class="pagination">
+                        <li th:class="${preauthorizations.number == 0} ? disabled">
+                            <a class="pageLink" th:href="@{/preauths/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                        </li>
+                        <li th:class="${preauthorizations.number == 0} ? disabled">
+                            <a class="pageLink" th:href="@{/preauths/(pageSize=${selectedPageSize}, page=${preauthorizations.number})}">&larr;</a>
+                        </li>
+                        <li th:class="${preauthorizations.number == (page - 1)} ? 'active pointer-disabled'"
+                            th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                            <a class="pageLink" th:href="@{/preauths/(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+                        </li>
+                        <li th:class="${preauthorizations.number + 1 == preauthorizations.totalPages} ? disabled">
+                            <a class="pageLink" th:href="@{/preauths/(pageSize=${selectedPageSize}, page=${preauthorizations.number + 2})}">&rarr;</a>
+                        </li>
+                        <li th:class="${preauthorizations.number + 1 == preauthorizations.totalPages} ? disabled">
+                            <a class="pageLink" th:href="@{/preauths/(pageSize=${selectedPageSize}, page=${preauthorizations.totalPages})}">&raquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/preauthorization/new">
+                        <button class="ui-button ui-widget ui-corner-all has-spinner">
+                                <span class="spinner">
+                                <i class="icon-spin icon-refresh"></i>
+                            </span> Add Account Setting
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
