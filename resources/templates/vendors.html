@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>FixQuicker</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"/>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+    <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link th:href="@{/css/style.css}" rel="stylesheet"/>
+    <link th:href="@{/css/dashboard.css}" rel="stylesheet"/>
+    <link th:href="@{/css/vendor.css}" rel="stylesheet"/>
+    <script th:src="@{/js/app.js}"></script>
+</head>
+
+<body class="background-white">
+<header>
+    <div th:replace="fragments/header :: header"></div>
+</header>
+<div class="container-fluid">
+    <div class="row">
+        <div id="filter-sidebar"
+             class="col-xs-6 col-sm-2 visible-sm visible-md visible-lg collapse sliding-sidebar sidebar"
+             th:replace="fragments/filter-sidebar :: filter-sidebar"></div>
+       	<div class="col-xs-9 col-sm-9 col-md-10 main-body">
+	        	<div th:replace="fragments/top-menubar :: top-menubar" >  </div>
+            <div class="bubble col-xs-12" id="workOrderContent">
+                <div class="col-xs-5">
+                    <h2>Vendors</h2>
+                </div>
+            </div>
+	        	<div th:text="${vendor_view}">  </div>
+            <div class="main-content" th:switch="${vendor_view}">
+                 <!-- Start Show Job Postings -->
+                    <table id="jobPosting" class="vendor-table">
+	                    <thead>                    
+	                    		<tr>
+	                    			<td>Description</td>
+	                    			<td>Zip Code / Area</td>
+	                    			<td>Submitted</td>
+	                    			<td>Spots Taken</td>
+	                    		</tr>
+	                    	</thead>
+	                    	<tbody>
+	                    	    <tr th:each="jobPosting, iter : ${jobPostings}">
+	                            <td class="valign-middle" data-label="Description" th:text="${jobPosting.description}">Description</td>
+	                            <td class="valign-middle" data-label="Zip Code / Area" th:text="${jobPosting.zipCodeAndArea}">Zip Code / Area</td>
+	                            <td class="valign-middle" data-label="Submitted" th:text="${jobPosting.submittedDisplay}">Spots Taken</td>
+	                            <td class="valign-middle" data-label="Spots Taken">
+	                            		<div th:each="pool : ${jobPosting.postingPools}">
+	                            			<div th:text="${pool.name}"></div>
+	                            			<div th:text="${pool.current / pool.max}"></div>
+	                            			
+	                            		</div>
+	                            </td>
+	                            <td th:switch="${jobPosting.proposal}">
+	                            		<button th:case="null" type="button" class="btn btn-info btn-lg">Pool Entered</button>
+	                            
+	                            		<button th:case="*" type="button" class="btn btn-info btn-lg" data-toggle="modal" th:attr="data-target='#enter_pool_' + ${iter.index}">Enter Pool</button>
+                 <div th:attr="id='enter_pool_' + ${iter.index}" class="modal vendor-enter-pool-modal" role="dialog">
+                 	Modal Enter Form
+                 	<table class="vendor-enter-pool-table">
+                 		<tr>
+                 			<td colspan="2">
+                 				Enter Pool
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				Zip/Area
+                 			</td>
+	                         <td class="valign-middle" th:text="${jobPosting.id}">Job ID: XXXXXXXXX</td>
+                 		</tr>
+                 		<tr>
+	                        	<td class="valign-middle" th:text="${jobPosting.type}">Job type</td>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				Description
+                 			</td>
+                 		</tr>
+                 		<tr>
+	                        	<td class="valign-middle" th:text="${jobPosting.description}">Job ID: XXXXXXXXX</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				Select Employee
+                 			</td>
+                 			<td>
+                 				Select Contract
+                 			</td>
+                 		</tr>
+                 		
+                 		<tr>
+                 			<td>
+								<div class="form-group blu-margin">
+								    <select class="form-control"   id="dropEmployee">
+								    <option value="0">Select employee</option>
+								    <option th:each="employee : ${jobPosting.proposal.employees}" th:value="${employee.name}" th:text="${employee.name}"></option>
+								    </select>
+								</div>
+							</td>
+                 			<td>
+								<div class="form-group blu-margin">
+								    <select class="form-control"  id="dropContractor">
+								    <option value="0">Select Contract</option>
+								    <option th:each="contract : ${jobPosting.proposal.contracts}" th:value="${contract.name}" th:text="${contract.name}"></option>
+								    </select>
+								</div>
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				ETA
+                 			</td>
+                 			<td>
+                 				Warranty Period
+                 			</td>
+                 		</tr>
+                 		<tr>
+	                        	<td class="valign-middle" th:text="${jobPosting.proposal.eta}" />
+	                        	<td class="valign-middle" th:text="${jobPosting.proposal.warrantyPeriod}" />
+                 		</tr>
+                 		<tr>
+	                        	<td class="valign-middle">ETA is your best estimate for how long it will take to issue a quote for the job request form the time of booking, should you be selected.</td>
+	                        	<td class="valign-middle">Warranty Period is for how long you are willing to warranty your work. The customer will see this before making a selection</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				<input type="checkbox" name="accept" th:checked="${jobPosting.proposal.acceptEarlyWithdrawFee}" class="vendor-modal-touchpoint"/>
+                 				&nbsp;
+                 				I understand that my entry cannot be withdrawn until it has been pending for 10 minutes. Early withdrawal will result in a cancellation fee.
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+						<tr>
+							<td>
+							<input class="vendor-modal-touchpoint btn btn-default" type="button" value="Confirm" />
+							</td>
+							<td>
+							<input class="vendor-modal-touchpoint btn btn-default" value="Go Back"  type="button"  data-dismiss="modal"/>
+							</td>
+						</tr>                 		
+                 	</table>
+                 </div>
+	                            </td>
+	                        </tr>
+	                    </tbody>
+                    </table>
+                 </div>
+                 <!-- End Show Job Postings -->
+                 
+                 
+                 <!-- Start Pending Jobs -->
+                <div class="col-xs-12">
+                    <table id="jobPosting" class="table table-striped table-bordered">
+	                    <thead>                    
+	                    		<tr>
+	                    			<td>Description</td>
+	                    			<td>Zip Code / Area</td>
+	                    			<td>Entered Pool</td>
+	                    			<td>Spots Taken</td>
+	                    			<td>Employee</td>
+	                    			<td>ETA</td>
+	                    			<td>&nbsp;</td>
+	                    		</tr>
+	                    	</thead>
+	                    	<tbody>
+	                    	    <tr th:each="jobProposal, iter : ${proposalDetails}">
+	                            <td class="valign-middle" data-label="Description" th:text="${jobProposal.description}">Description</td>
+	                            <td class="valign-middle" data-label="Zip Code / Area" th:text="${jobProposal.zipCodeAndArea}">Zip Code / Area</td>
+	                            <td class="valign-middle" data-label="Entered Pool" th:text="${jobProposal.zipCodeAndArea}">Entered Pool</td>
+	                            <td class="valign-middle" data-label="Spots Taken">
+                            			<div th:text="${jobProposal.spotsTaken}"></div>
+                            			<div th:text="${jobProposal.maxSpots}"></div>
+	                            </td>
+	                            <td class="valign-middle" data-label="Employee">
+                            			<div th:text="${jobProposal.employeePhoto}"></div>
+                            			<div th:text="${jobProposal.employeeName}"></div>
+	                            </td>
+	                            <td class="valign-middle" data-label="ETA" th:text="${jobProposal.eta}">Spots Taken</td>
+	                            <td class="valign-middle">
+		                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" th:attr="data-target='#withdraw_proposal_' + ${iter.index}">Withdraw</button>
+									                 
+                 <div th:attr="id='withdraw_proposal_' + ${iter.index}" class="modal vendor-enter-pool-modal" role="dialog">
+                 	<table class="vendor-withdraw-proposal-table">
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.details.employeePhoto}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.details.employeeName}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.employeeTitle}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.employeePhone}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.companyName}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.companyPhone}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+                 			<td>
+                 				Entered Pool
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.warranty}">Spots Taken</td>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.rating}">Spots Taken</td>
+                 		</tr>                 		
+                 		<tr>
+	                    		<td class="valign-middle">Warranty</td>
+	                    		<td class="valign-middle">Rating</td>
+                 		</tr>                    		              		
+                 	</table>
+                 	<table  class="vendor-withdraw-proposal-table">
+                 		<tr>
+                 			<td th:text="${jobProposal.withdrawProposalForm.earlyWithdraw} ? 'Early Withdraw Request' : 'Withdraw Request'">
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				Zip/Area
+                 			</td>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.jobId}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.details.zipCodeAndArea}">Spots Taken</td>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.employeeTitle}">Spots Taken</td>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				Description
+                 			</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${jobProposal.withdrawProposalForm.details.description}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				<input class="vendor-modal-touchpoint" type="checkbox" name="withdraw" th:checked="${jobProposal.withdrawProposalForm.acceptCancellationFee}" />
+                 				&nbsp;
+                 				I understand that withdrawal of my entry before it has been pending for 10 minutes is subject to a cancellation fee.
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+						<tr>
+							<td>
+							<input type="submit" value="Confirm" class="vendor-modal-touchpoint  btn btn-default" />
+							</td>
+							<td>
+							<input value="Go Back"  type="button" class="vendor-modal-touchpoint btn btn-default" data-dismiss="modal" />
+							</td>
+						</tr>                 		
+                 	</table>
+                 </div>
+									
+								</td>
+	                        </tr>
+	                    </tbody>
+                    </table>
+                 </div>
+                 <!-- End Pending Jobs -->
+                 <!-- Start Withdraw Proposal -->
+                 <div>
+                 	<table>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.details.employeePhoto}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.details.employeeName}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.employeeTitle}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.employeePhone}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.companyName}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.companyPhone}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+                 			<td>
+                 				Entered Pool
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>                 		
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.warranty}">Spots Taken</td>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.rating}">Spots Taken</td>
+                 		</tr>                 		
+                 		<tr>
+	                    		<td class="valign-middle">Warranty</td>
+	                    		<td class="valign-middle">Rating</td>
+                 		</tr>                    		              		
+                 	</table>
+                 	<table>
+                 		<tr>
+                 			Early Withdrawal Request
+                 		</tr>
+                 		<tr>
+                 			<td>
+                 				Zip/Area
+                 			</td>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.jobId}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.details.zipCodeAndArea}">Spots Taken</td>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.employeeTitle}">Spots Taken</td>
+                 			<td>
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				Description
+                 			</td>
+                 		</tr>
+                 		<tr>
+	                    		<td class="valign-middle" data-label="Employee Name" th:text="${withdrawForm.details.description}">Spots Taken</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				<input type="checkbox" name="withdraw" th:checked="${vendorProposalForm.acceptEarlyWithdrawFee}" />
+                 				&nbsp;
+                 				I understand that withdrawal of my entry before it has been pending for 10 minutes is subject to a cancellation fee.
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+                 		<tr>
+                 			<td colspan="2">
+                 				&nbsp;
+                 			</td>
+                 		</tr>
+						<tr>
+							<td>
+							<input type="submit" value="Confirm" />
+							</td>
+							<td>
+							<input type="submit" value="Go Back" />
+							</td>
+						</tr>                 		
+                 	</table>
+                 </div>
+                 <!-- End Withdraw Proposal -->
+                    <!-- 
+                    <a href="/vendor/new">
+                        <button class="ui-button ui-widget ui-corner-all has-spinner">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            <span class="spinner">
+                                <i class="icon-spin icon-refresh"></i>
+                            </span> Add Vendor
+                        </button>
+                    </a>
+                    <table class="table table-striped table-hover table-responsive">
+                        <tr>
+                            <th>Id</th>
+                            <th>License</th>
+                            <th>Category</th>
+                            <th>First name</th>
+                            <th>Last name</th>
+                            <th>Street address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Zip code</th>
+                            <th>Phone number</th>
+                            <th>Email address</th>
+                            <th>Rating</th>
+                        </tr>
+                        <tr th:each="vendor : ${vendors}">
+                            <td class="valign-middle" data-label="Id" th:text="${vendor.id}"><a
+                                    href="/vendors/${vendor.id}">Id</a></td>
+                            <td class="valign-middle" data-label="License" th:text="${vendor.license}">License</td>
+                            <td class="valign-middle" data-label="Category" th:text="${vendor.category}">Category</td>
+                            <td class="valign-middle" data-label="First name" th:text="${vendor.account.firstName}">
+                                First name
+                            </td>
+                            <td class="valign-middle" data-label="Last name" th:text="${vendor.account.lastName}">Last
+                                name
+                            </td>
+                            <td class="valign-middle" data-label="Street address"
+                                th:text="${vendor.account.streetAddress}">Street address
+                            </td>
+                            <td class="valign-middle" data-label="City" th:text="${vendor.account.city}">City</td>
+                            <td class="valign-middle" data-label="State" th:text="${vendor.account.state}">State</td>
+                            <td class="valign-middle" data-label="Zip" th:text="${vendor.account.zip}">Zip</td>
+                            <td class="valign-middle" data-label="Phone number" th:text="${vendor.account.phoneNumber}">
+                                Phone number
+                            </td>
+                            <td class="valign-middle" data-label="Email address"
+                                th:text="${vendor.account.emailAddress}">Email address
+                            </td>
+                            <td class="valign-middle" data-label="Rating" th:text="${vendor.account.rating}">Rating</td>
+
+                            <td><a th:href="${'/vendor/' + vendor.id}">View</a></td>
+                            <td><a th:href="${'/vendor/edit/' + vendor.id}">Edit</a></td>
+                            <td><a th:href="${'/vendor/delete/' + vendor.id}">Delete</a></td>
+                        </tr>
+                    </table>
+                    <div class="row">
+                    <div class="form-group col-md-1">
+                            <select class="form-control pagination" id="vendorPageSizeSelect">
+                                <option th:each="pageSize : ${pageSizes}" th:text="${pageSize}" th:value="${pageSize}"
+                                        th:selected="${pageSize} == ${selectedPageSize}"></option>
+                            </select>
+                        </div>
+                        <div th:if="${vendors.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+                            <ul class="pagination">
+                                <li th:class="${vendors.number == 0} ? disabled">
+                                    <a class="pageLink"
+                                       th:href="@{/vendors/(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                                </li>
+                                <li th:class="${vendors.number == 0} ? disabled">
+                                    <a class="pageLink"
+                                       th:href="@{/vendors/(pageSize=${selectedPageSize}, page=${vendors.number})}">&larr;</a>
+                                </li>
+                                <li th:class="${vendors.number == (page - 1)} ? 'active pointer-disabled'"
+                                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                                    <a class="pageLink"
+                                       th:href="@{/vendors/(pageSize=${selectedPageSize}, page=${page})}"
+                                       th:text="${page}"></a>
+                                </li>
+                                <li th:class="${vendors.number + 1 == vendors.totalPages} ? disabled">
+                                    <a class="pageLink"
+                                       th:href="@{/vendors/(pageSize=${selectedPageSize}, page=${vendors.number + 2})}">&rarr;</a>
+                                </li>
+                                <li th:class="${vendors.number + 1 == vendors.totalPages} ? disabled">
+                                    <a class="pageLink"
+                                       th:href="@{/vendors/(pageSize=${selectedPageSize}, page=${vendors.totalPages})}">&raquo;</a>
+                                </li>
+                            </ul>
+                        </div>
+                     -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cancel Popup Modal -->
+        <div class="modal fade" id="cancelModal" role="dialog">
+            <!-- Modal content-->
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="">
+                        <div class="col-md-2 col-xs-6">
+                            <div class="card hovercard">
+                                <div class="avatar">
+                                    <img alt="" src="http://lorempixel.com/100/100/people/9/">
+                                </div>
+                                <div class="modal-vendor-info">
+                                    <div class="vendor-main">
+                                        <div class="fav-user">
+                                            <i class="fa fa-heart-o"></i>
+                                        </div>
+                                        <h4>Script Eden</h4>
+                                        <p>Plumber</p>
+                                        <i class="fa fa-mobile" aria-hidden="true">(619) 235-0922</i>
+                                        <p>Courtesy Plumbing</p>
+                                        <i class="fa fa-phone" aria-hidden="true">(619) 455-7649</i>
+                                        <p class="selected-user">Selected</p>
+                                        <div class="vendor-rating">
+                                            <div class="col-sm-6">
+                                                <span>60 days</span>
+                                                <p>Warranty</p>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <span>60 days</span>
+                                                <p>Warranty</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 col-xs-6 background-white" id="bookModalContent">
+                            <div class="col-sm-12">
+                                <div class="text-center">
+                                    <h3 class="text-red">Cancellation Request</h3>
+                                    <p>You have requested to cancel the following booked work order:</p>
+                                </div>
+                                <div class="float-right"><p>Assigned to:<span id="cancellation_user_name"
+                                                                              class="user-name">Michelle</span></p>
+                                </div>
+                                <h4 id="cancellation_address">111 Cardiff Lane, unit 3</h4>
+                                <h6 id="cancellation_access_code">Access Code: 65397</h6>
+                                <p id="cancellation_category">Plumbing</p>
+                                <h4>Description</h4>
+                                <p id="cancellation_description">We have water leaking from the ceiling in one of the
+                                    bedrooms. Not sure where it's coming from</p>
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="">
+                                        <p>I understand that cancellation is subject to the terms agreed upon in the
+                                            Contractor's Agreement. I also understand that the Service Fee will not be
+                                            refunded</p>
+                                    </label>
+                                </div>
+                                <div class="col-xs-12">
+                                    <button type="button" class="btn btn-info col-xs-5 btn-danger" data-dismiss="modal">
+                                        Confirm
+                                    </button>
+                                    <button type="button" class="btn btn-default col-xs-5" data-dismiss="modal">Cancel
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

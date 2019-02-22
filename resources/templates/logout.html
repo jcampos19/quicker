@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=US-ASCII"/>
+    <title th:text="#{label.pages.home.title}">home</title>
+
+    <style>
+        header {
+            height: 50px;
+            background-color: orange;
+        }
+
+        .alert-info {
+            border-color: black;
+            color: black;
+            height: 100px;
+            text-align: center;
+            padding: 27px 0;
+            background-color:white;
+        }
+
+        .btn-primary {
+            background-color: orange;
+            border-color: orange;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffbd5b;
+            border-color: #ffbd5b;
+        }
+
+        .container {
+            background-color:white;
+        }
+
+        #fq-header-text {
+            color: white;
+            font-size: 35px;
+            text-align: left;
+            padding: 3px 15px;
+            font-weight: 500;
+        }
+
+    </style>
+</head>
+
+<body>
+<header>
+    <div id="text-shell">
+        <div id="fq-header-text">
+            FixQuicker
+        </div>
+    </div>
+</header>
+<div class="container">
+    <h1 id="error" class="alert alert-danger" th:if="${session[SPRING_SECURITY_LAST_EXCEPTION]}"
+        th:text="#{message.logoutError}">error</h1>
+
+    <h1 id="success" class="alert alert-info" th:if="${param.logSucc}" th:text="#{message.logoutSucc}"> success</h1>
+    <a class="btn btn-primary" th:href="@{/login}" th:text="#{label.form.loginLink}">login</a>
+</div>
+</body>
+
+</html>
